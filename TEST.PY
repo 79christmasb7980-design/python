@@ -1,0 +1,2 @@
+#TEST.PY
+print("aa")
