@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>웹 개발 학습 페이지</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        nav {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        nav button {
+            padding: 12px 24px;
+            border: none;
+            background-color: white;
+            color: #667eea;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        nav button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            background-color: #f0f0f0;
+        }
+
+        nav button.active {
+            background-color: #667eea;
+            color: white;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.6s ease-out;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .card p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .card code {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-left: 4px solid #667eea;
+            display: block;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        .interactive-section {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .interactive-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button.btn-action {
+            background-color: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        button.btn-action:hover {
+            background-color: #764ba2;
+        }
+
+        #result {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f0f4ff;
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+            display: none;
+            color: #333;
+            word-break: break-all;
+        }
+
+        .quiz-section {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .quiz-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .quiz-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+
+        .quiz-item.highlight {
+            background-color: #eef6ff;
+            border: 2px solid #667eea;
+            box-shadow: 0 6px 18px rgba(102,126,234,0.12);
+        }
+
+        .quiz-item p {
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .quiz-item label {
+            display: block;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        .quiz-item input[type="radio"] {
+            margin-right: 8px;
+        }
+
+        .quiz-item input[type="radio"]:checked + label {
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .score-display {
+            font-size: 1.2em;
+            color: #667eea;
+            font-weight: bold;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0f4ff;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .result-list { margin-top: 12px; text-align: left; }
+        .result-btn { display: block; width: 100%; text-align: left; padding: 8px 10px; border: none; background: transparent; cursor: pointer; color: #333; border-radius: 6px; }
+        .result-btn:hover { background: rgba(102,126,234,0.06); }
+        .submission-info { margin-top:8px; padding:8px; background:#fff9e6; border-left:4px solid #ffc107; border-radius:6px; font-size:0.95em; }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            nav {
+                flex-direction: column;
+            }
+
+            nav button {
+                width: 100%;
+            }
+
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 웹 개발 학습 페이지</h1>
+            <p>HTML5, CSS3, JavaScript 기초 학습</p>
+        </header>
+
+        <nav>
+            <button class="active" onclick="showSection('html')">HTML5</button>
+            <button onclick="showSection('css')">CSS3</button>
+            <button onclick="showSection('js')">JavaScript</button>
+            <button onclick="showSection('interactive')">인터랙티브</button>
+            <button onclick="showSection('quiz')">퀴즈</button>
+        </nav>
+
+        <!-- HTML5 섹션 -->
+        <div id="html-section" class="content">
+            <div class="card">
+                <h2>📄 HTML이란?</h2>
+                <p>HTML(HyperText Markup Language)은 웹 페이지의 구조를 정의하는 마크업 언어입니다.</p>
+                <code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;&lt;/head&gt;
+  &lt;body&gt;&lt;/body&gt;
+&lt;/html&gt;</code>
+            </div>
+
+            <div class="card">
+                <h2>🏷️ 주요 태그</h2>
+                <p><strong>&lt;header&gt;</strong>: 헤더 영역</p>
+                <p><strong>&lt;nav&gt;</strong>: 네비게이션</p>
+                <p><strong>&lt;main&gt;</strong>: 주요 콘텐츠</p>
+                <p><strong>&lt;footer&gt;</strong>: 푸터 영역</p>
+                <p><strong>&lt;article&gt;</strong>: 독립적인 콘텐츠</p>
+            </div>
+
+            <div class="card">
+                <h2>📝 입력 요소</h2>
+                <p>HTML5는 다양한 입력 타입을 지원합니다:</p>
+                <code>&lt;input type="text"&gt;
+&lt;input type="email"&gt;
+&lt;input type="number"&gt;
+&lt;input type="date"&gt;
+&lt;input type="color"&gt;</code>
+            </div>
+        </div>
+
+        <!-- CSS3 섹션 -->
+        <div id="css-section" class="content" style="display: none;">
+            <div class="card">
+                <h2>🎨 CSS란?</h2>
+                <p>CSS(Cascading Style Sheets)는 HTML 요소의 스타일을 정의합니다.</p>
+                <code>selector {
+  property: value;
+}</code>
+            </div>
+
+            <div class="card">
+                <h2>✨ 선택자 유형</h2>
+                <p><strong>요소 선택자:</strong> p { }</p>
+                <p><strong>클래스 선택자:</strong> .className { }</p>
+                <p><strong>ID 선택자:</strong> #idName { }</p>
+                <p><strong>속성 선택자:</strong> [type="text"] { }</p>
+            </div>
+
+            <div class="card">
+                <h2>🎭 주요 속성</h2>
+                <p><strong>color:</strong> 텍스트 색상</p>
+                <p><strong>background-color:</strong> 배경색</p>
+                <p><strong>font-size:</strong> 글씨 크기</p>
+                <p><strong>display:</strong> 표시 방식 (flex, grid)</p>
+                <p><strong>transition:</strong> 애니메이션</p>
+            </div>
+        </div>
+
+        <!-- JavaScript 섹션 -->
+        <div id="js-section" class="content" style="display: none;">
+            <div class="card">
+                <h2>⚙️ JavaScript란?</h2>
+                <p>JavaScript는 웹 페이지에 상호작용을 추가하는 프로그래밍 언어입니다.</p>
+                <code>console.log("Hello, World!");</code>
+            </div>
+
+            <div class="card">
+                <h2>📊 변수와 자료형</h2>
+                <p><strong>let, const, var</strong>: 변수 선언</p>
+                <p><strong>String:</strong> 문자열</p>
+                <p><strong>Number:</strong> 숫자</p>
+                <p><strong>Boolean:</strong> 참/거짓</p>
+                <p><strong>Object:</strong> 객체</p>
+            </div>
+
+            <div class="card">
+                <h2>🔧 함수와 이벤트</h2>
+                <code>function greet(name) {
+  return "Hello, " + name;
+}
+
+element.addEventListener("click", function);</code>
+            </div>
+        </div>
+
+        <!-- 인터랙티브 섹션 -->
+        <div id="interactive-section" style="display: none;">
+            <div class="interactive-section">
+                <h2>🎯 계산기</h2>
+                <div class="input-group">
+                    <label for="num1">숫자 1:</label>
+                    <input type="number" id="num1" placeholder="숫자를 입력하세요">
+                </div>
+                <div class="input-group">
+                    <label for="operator">연산자:</label>
+                    <select id="operator">
+                        <option value="add">더하기 (+)</option>
+                        <option value="subtract">빼기 (-)</option>
+                        <option value="multiply">곱하기 (*)</option>
+                        <option value="divide">나누기 (/)</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="num2">숫자 2:</label>
+                    <input type="number" id="num2" placeholder="숫자를 입력하세요">
+                </div>
+                <button class="btn-action" onclick="calculate()">계산하기</button>
+                <div id="result"></div>
+            </div>
+
+            <div class="interactive-section">
+                <h2>🌈 색상 변경</h2>
+                <div class="input-group">
+                    <label for="colorPicker">색상 선택:</label>
+                    <input type="color" id="colorPicker" value="#667eea">
+                </div>
+                <button class="btn-action" onclick="changeBackgroundColor()">배경색 변경</button>
+            </div>
+
+            <div class="interactive-section">
+                <h2>📅 날짜와 시간</h2>
+                <button class="btn-action" onclick="showDateTime()">현재 시간 보기</button>
+                <div id="result"></div>
+            </div>
+
+            <div class="interactive-section">
+                <h2>✏️ 텍스트 변환</h2>
+                <div class="input-group">
+                    <label for="textInput">텍스트:</label>
+                    <input type="text" id="textInput" placeholder="텍스트를 입력하세요">
+                </div>
+                <button class="btn-action" onclick="toUpperCase()">대문자 변환</button>
+                <button class="btn-action" onclick="toLowerCase()">소문자 변환</button>
+                <button class="btn-action" onclick="reverseText()">반전</button>
+                <div id="result"></div>
+            </div>
+        </div>
+
+        <!-- 퀴즈 섹션 -->
+        <div id="quiz-section" style="display: none;">
+            <div class="quiz-section">
+                <h2>❓ 웹 개발 기초 퀴즈</h2>
+                
+                <div class="quiz-item" id="q1">
+                    <p>1. HTML은 무엇의 약자인가요?</p>
+                    <label><input type="radio" name="quiz1" value="correct"> HyperText Markup Language</label>
+                    <label><input type="radio" name="quiz1" value="wrong"> High Tech Markup Language</label>
+                    <label><input type="radio" name="quiz1" value="wrong"> Home Tool Markup Language</label>
+                </div>
+
+                <div class="quiz-item" id="q2">
+                    <p>2. CSS는 주로 무엇을 담당하나요?</p>
+                    <label><input type="radio" name="quiz2" value="wrong"> 웹 페이지의 구조</label>
+                    <label><input type="radio" name="quiz2" value="correct"> 웹 페이지의 스타일과 레이아웃</label>
+                    <label><input type="radio" name="quiz2" value="wrong"> 웹 페이지의 상호작용</label>
+                </div>
+
+                <div class="quiz-item" id="q3">
+                    <p>3. JavaScript는 어느 쪽에서 실행되나요?</p>
+                    <label><input type="radio" name="quiz3" value="wrong"> 서버</label>
+                    <label><input type="radio" name="quiz3" value="correct"> 클라이언트 (브라우저)</label>
+                    <label><input type="radio" name="quiz3" value="wrong"> 데이터베이스</label>
+                </div>
+
+                <div class="quiz-item" id="q4">
+                    <p>4. 다음 중 CSS 선택자가 아닌 것은?</p>
+                    <label><input type="radio" name="quiz4" value="wrong"> .className</label>
+                    <label><input type="radio" name="quiz4" value="wrong"> #idName</label>
+                    <label><input type="radio" name="quiz4" value="correct"> @className</label>
+                </div>
+
+                <div class="quiz-item" id="q5">
+                    <p>5. Flexbox는 어떤 기술인가요?</p>
+                    <label><input type="radio" name="quiz5" value="wrong"> JavaScript 라이브러리</label>
+                    <label><input type="radio" name="quiz5" value="correct"> CSS 레이아웃 기술</label>
+                    <label><input type="radio" name="quiz5" value="wrong"> HTML 태그</label>
+                </div>
+
+                <button class="btn-action" onclick="submitQuiz()">답안 제출</button>
+                <div class="score-display" id="score" style="display: none;"></div>
+                <div id="resultsContainer" class="result-list"></div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>&copy; 2024 웹 개발 학습 페이지 | HTML5, CSS3, JavaScript 기초 학습</p>
+        </footer>
+    </div>
+
+    <script>
+        // 섹션 전환
+        function showSection(section) {
+            // 모든 섹션 숨기기
+            document.getElementById('html-section').style.display = 'none';
+            document.getElementById('css-section').style.display = 'none';
+            document.getElementById('js-section').style.display = 'none';
+            document.getElementById('interactive-section').style.display = 'none';
+            document.getElementById('quiz-section').style.display = 'none';
+
+            // 버튼 활성화 상태 변경
+            document.querySelectorAll('nav button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // 선택된 섹션 표시
+            if (section === 'html') {
+                document.getElementById('html-section').style.display = 'grid';
+            } else if (section === 'css') {
+                document.getElementById('css-section').style.display = 'grid';
+            } else if (section === 'js') {
+                document.getElementById('js-section').style.display = 'grid';
+            } else if (section === 'interactive') {
+                document.getElementById('interactive-section').style.display = 'block';
+            } else if (section === 'quiz') {
+                document.getElementById('quiz-section').style.display = 'block';
+            }
+        }
+
+        // 계산기
+        function calculate() {
+            const num1 = parseFloat(document.getElementById('num1').value);
+            const num2 = parseFloat(document.getElementById('num2').value);
+            const operator = document.getElementById('operator').value;
+            let result;
+
+            if (isNaN(num1) || isNaN(num2)) {
+                document.getElementById('result').textContent = '숫자를 입력해주세요!';
+                document.getElementById('result').style.display = 'block';
+                return;
+            }
+
+            switch(operator) {
+                case 'add':
+                    result = num1 + num2;
+                    break;
+                case 'subtract':
+                    result = num1 - num2;
+                    break;
+                case 'multiply':
+                    result = num1 * num2;
+                    break;
+                case 'divide':
+                    if (num2 === 0) {
+                        document.getElementById('result').textContent = '0으로 나눌 수 없습니다!';
+                        document.getElementById('result').style.display = 'block';
+                        return;
+                    }
+                    result = num1 / num2;
+                    break;
+            }
+
+            document.getElementById('result').textContent = `결과: ${num1} ${getOperatorSymbol(operator)} ${num2} = ${result}`;
+            document.getElementById('result').style.display = 'block';
+        }
+
+        function getOperatorSymbol(op) {
+            const symbols = {
+                'add': '+',
+                'subtract': '-',
+                'multiply': '*',
+                'divide': '/'
+            };
+            return symbols[op];
+        }
+
+        // 배경색 변경
+        function changeBackgroundColor() {
+            const color = document.getElementById('colorPicker').value;
+            document.body.style.background = color;
+            document.getElementById('result').textContent = `배경색이 ${color}로 변경되었습니다!`;
+            document.getElementById('result').style.display = 'block';
+        }
+
+        // 현재 시간 표시
+        function showDateTime() {
+            const now = new Date();
+            const dateTime = now.toLocaleString('ko-KR');
+            document.getElementById('result').textContent = `현재 시간: ${dateTime}`;
+            document.getElementById('result').style.display = 'block';
+        }
+
+        // 대문자 변환
+        function toUpperCase() {
+            const text = document.getElementById('textInput').value;
+            if (!text) {
+                document.getElementById('result').textContent = '텍스트를 입력해주세요!';
+            } else {
+                document.getElementById('result').textContent = text.toUpperCase();
+            }
+            document.getElementById('result').style.display = 'block';
+        }
+
+        // 소문자 변환
+        function toLowerCase() {
+            const text = document.getElementById('textInput').value;
+            if (!text) {
+                document.getElementById('result').textContent = '텍스트를 입력해주세요!';
+            } else {
+                document.getElementById('result').textContent = text.toLowerCase();
+            }
+            document.getElementById('result').style.display = 'block';
+        }
+
+        // 텍스트 반전
+        function reverseText() {
+            const text = document.getElementById('textInput').value;
+            if (!text) {
+                document.getElementById('result').textContent = '텍스트를 입력해주세요!';
+            } else {
+                document.getElementById('result').textContent = text.split('').reverse().join('');
+            }
+            document.getElementById('result').style.display = 'block';
+        }
+
+        // 퀴즈 제출
+        function submitQuiz() {
+            let score = 0;
+            const answers = [
+                { name: 'quiz1', correct: 'correct', explanation: 'HTML은 HyperText Markup Language의 약자입니다. 웹 문서의 구조와 내용을 정의합니다.' },
+                { name: 'quiz2', correct: 'correct', explanation: 'CSS는 Cascading Style Sheets의 약자로, 웹 페이지의 시각적 스타일과 레이아웃을 담당합니다.' },
+                { name: 'quiz3', correct: 'correct', explanation: '일반적으로 JavaScript는 클라이언트(브라우저)에서 실행되어 사용자와의 상호작용을 처리합니다.' },
+                { name: 'quiz4', correct: 'correct', explanation: '@className과 같은 표기는 CSS 선택자가 아니므로 정답입니다. CSS 선택자는 .class, #id, 요소 이름 등입니다.' },
+                { name: 'quiz5', correct: 'correct', explanation: 'Flexbox는 CSS 레이아웃 모델로, 요소들을 행 또는 열로 정렬하고 공간을 분배하는 데 사용됩니다.' }
+            ];
+
+            // 계산 및 결과 구성
+            const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.innerHTML = '';
+
+            answers.forEach((answer, idx) => {
+                const selected = document.querySelector(`input[name="${answer.name}"]:checked`);
+                if (selected && selected.value === answer.correct) {
+                    score++;
+                }
+
+                // 선택한 라벨 텍스트
+                const selectedLabel = selected ? (selected.closest('label') ? selected.closest('label').textContent.trim() : selected.value) : '선택 없음';
+                // 정답 라벨 텍스트
+                const correctInput = document.querySelector(`input[name="${answer.name}"][value="${answer.correct}"]`);
+                const correctLabel = correctInput ? (correctInput.closest('label') ? correctInput.closest('label').textContent.trim() : answer.correct) : '정답 없음';
+
+                const isCorrect = selected && selected.value === answer.correct;
+
+                // 결과 버튼 생성
+                const btn = document.createElement('button');
+                btn.className = 'result-btn';
+                btn.type = 'button';
+                btn.textContent = `문제 ${idx + 1} — ${isCorrect ? '정답' : '오답'} (클릭하여 제출 내용 보기)`;
+                btn.addEventListener('click', () => {
+                    // 하이라이트 초기화
+                    document.querySelectorAll('.quiz-item').forEach(el => el.classList.remove('highlight'));
+                    const qEl = document.getElementById('q' + (idx + 1));
+                    if (qEl) {
+                        qEl.classList.add('highlight');
+                        qEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+
+                    // 상세 정보 표시
+                    let info = document.getElementById('answer-detail');
+                    if (!info) {
+                        info = document.createElement('div');
+                        info.id = 'answer-detail';
+                        info.className = 'submission-info';
+                        resultsContainer.appendChild(info);
+                    }
+                    const explanationText = (answers[idx] && answers[idx].explanation) ? answers[idx].explanation : '';
+                    info.innerHTML = `<strong>문제 ${idx + 1} 제출 내용</strong>` +
+                                     `<div>당신의 답: ${escapeHtml(selectedLabel)}</div>` +
+                                     `<div>정답: ${escapeHtml(correctLabel)}</div>` +
+                                     `<div style="margin-top:8px;"><strong>해설:</strong> ${escapeHtml(explanationText)}</div>`;
+                });
+
+                resultsContainer.appendChild(btn);
+            });
+
+            const scoreDisplay = document.getElementById('score');
+            scoreDisplay.textContent = `점수: ${score} / ${answers.length} (${Math.round(score / answers.length * 100)}%)`;
+            scoreDisplay.style.display = 'block';
+        }
+
+        // 간단한 HTML 이스케이프 (레이블 텍스트 안전 출력)
+        function escapeHtml(text) {
+            return String(text)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+    </script>
+</body>
+</html>
