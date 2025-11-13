@@ -2,6 +2,8 @@
 from bs4 import BeautifulSoup
 #웹서버 요청
 import urllib.request
+
+#파일로 저장
 f = open("clien.txt", "wt", encoding="utf-8")
 
 #10개 페이지 처리:페이지 처리
@@ -19,7 +21,7 @@ for i in range(0,10):
         f.write(title + "\n")
 
     #원하는 데이터 추출
-    
+
         
 f.close()
 

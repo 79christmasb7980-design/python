@@ -10,7 +10,7 @@ hdr = {'User-agent':'Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) Appl
 #파일로 저장
 f= open("todayhumor r1.txt", "wt", encoding="utf-8")
 
-for n in range(1,5):
+for n in range(1,2):
         #오늘의 유머 주소 
         data ='https://www.todayhumor.co.kr/board/list.php?table=bestofbest&page=' + str(n)
         #웹브라우져 헤더 추가 
@@ -27,7 +27,8 @@ for n in range(1,5):
                     title = item.find('a').text.strip()  #<a>태그 안의 text 추출 
                     #특정 속성을 검색
                     href = item.find('a')['href']
-                    if re.search('일본', title): #조건 검색
+                    if re.search('' \
+                    '', title): #조건 검색
                         print(title.strip())
                         print("https://www.todayhumor.co.kr/" + href)
                         f.write('a' + title + "\n")

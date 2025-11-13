@@ -14,7 +14,7 @@ def createFolder (name) :
         print('이미 존재하는 폴더입니다.')
 
 
-input_name = input("검색할 동물이름:")
+input_name = input("검색할 이름:")
 driver = wb.Chrome()
 driver.get(f"https://search.naver.com/search.naver?where=image&sm=tab_jum&query={input_name}")
 #약간의 대기 시간 주기 
