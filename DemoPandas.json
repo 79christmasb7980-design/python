@@ -1,0 +1,12 @@
+import matpotlib.pyplot as plt
+#매직명령어
+%matplotlib inline
+import numpy as np
+import pandas as pd
+#라인그래프 출력
+plt.plot(np.arrage(10)
+
+# Query: import matpotlib.pyplot as plt\n#매직명령어\n%matplotlib inline\nimport numpy as np\nimport pandas as pd\n#라인그래프 출력\nplt.plot(np.arrage(10)
+# ContextLines: 1
+
+결과 없음

@@ -80,6 +80,7 @@ class Form(QMainWindow):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     mywindow = Form()
+    mywindow.setWindowTitle("중고장터")
     mywindow.show()
     app.exec_()
 
