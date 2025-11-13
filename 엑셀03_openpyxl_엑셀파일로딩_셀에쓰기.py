@@ -14,5 +14,5 @@ for  data  in  datalist:
     ws.cell(row = i, column=1).value = data  #A열(Column=1)에 행을 바꾸면서 입력
     i=i+1  
 
-#wb.save("result2.xlsx") #엑셀 파일 저장
-wb.save("test2.xlsx") #엑셀 파일 저장
+wb.save("result2.xlsx") #엑셀 파일 저장
+#wb.save("test2.xlsx") #엑셀 파일 저장

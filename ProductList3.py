@@ -33,7 +33,7 @@ class Window(QMainWindow, form_class):
         self.tableWidget.setColumnWidth(1, 200)
         self.tableWidget.setColumnWidth(2, 100)
         #QTableWidget의 헤더 셋팅하기
-        self.tableWidget.setHorizontalHeaderLabels(["제품ID","NAME", "TEAM"])
+        self.tableWidget.setHorizontalHeaderLabels(["제품ID","제품명", "가격"])
         #QTableWidget의 컬럼 정렬하기 
         #self.tableWidget.horizontalHeaderItem(0).setTextAlignment(Qt.AlignRight)
         #self.tableWidget.horizontalHeaderItem(2).setTextAlignment(Qt.AlignRight)
