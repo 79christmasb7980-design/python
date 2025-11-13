@@ -10,7 +10,7 @@ class DemoWindow(QMainWindow):
 
     def setupUI(self):
         btn1 = QPushButton("닫기", self)
-        btn1.move(20, 20)
+        btn1.move(50, 20)
         btn1.clicked.connect(QCoreApplication.instance().quit)
 
 if __name__ == "__main__":

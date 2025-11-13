@@ -7,13 +7,13 @@ class DemoWindow(QMainWindow):
         super().__init__()
         self.setupUI()
 
-    def setupUI(self):
-        self.setGeometry(800, 200, 300, 300)
+    def setupUI(self):  #check box 생성 및 위치 지정
+        self.setGeometry(500, 500, 300, 300)  #x, y, width, height
 
         self.checkBox1 = QCheckBox("아이폰", self)
         self.checkBox1.move(10, 20)
         self.checkBox1.resize(150, 30)
-        self.checkBox1.stateChanged.connect(self.checkBoxState)
+        self.checkBox1.stateChanged.connect(self.checkBoxState) #시그널, slot 연결
 
         self.checkBox2 = QCheckBox("안드로이드폰", self)
         self.checkBox2.move(10, 50)
