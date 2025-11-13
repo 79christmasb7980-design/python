@@ -3,10 +3,10 @@
 import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import *
-3
 from bs4 import BeautifulSoup
 #웹서버 요청
 import urllib.request
+
 
 #UI파일 연결
 form_class = uic.loadUiType("DemoFormMain.ui")[0]

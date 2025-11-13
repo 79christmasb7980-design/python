@@ -1,4 +1,4 @@
-# demoRandom.py
+# Random.py
 import random   
 
 print(random.random())  #0.0~1.0미만의 실수 난수 생성
