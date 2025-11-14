@@ -78,11 +78,13 @@ def remove_trailing_date_time(s: str) -> str:
     # Patterns to detect trailing dates/times
     date_time_re = re.compile(
         r"(?:\s*[-–—]?\s*)?"
-        r"(?:(?:\d{4}[./-]\d{1,2}[./-]\d{1,2}(?:[ T]\d{1,2}:\d{2}(?::\d{2})?)?)"  # 2025-11-14 or with time
-        r"|(?:\d{8})"  # 20251114
-        r"|(?:\d{1,2}:\d{2}(?::\d{2})?)"  # 12:34 or 12:34:56
-        r"|(?:\d{4}년\d{1,2}월\d{1,2}일(?:\s*\d{1,2}:\d{2})?))\s*$",
-        re.UNICODE,
+        #r"(?:(?:\d{4}[./-]\d{1,2}[./-]\d{1,2}(?:[ T]\d{1,2}:\d{2}(?::\d{2})?)?)"  # 2025-11-14 or with time
+        #am & pm 이 나오는 패턴은 제외
+        r"(?:\d{4}[./-]\d{1,2}[./-]\d{1,2}(?:\s+\d{1,2}:\d{2}(?::\d{2})?(?:\s?[APap][Mm])?)?)"  # 2025-11-14 or with time
+        # r"|(?:\d{8})"  # 20251114
+        # r"|(?:\d{1,2}:\d{2}(?::\d{2})?)"  # 12:34 or 12:34:56
+        # r"|(?:\d{4}년\d{1,2}월\d{1,2}일(?:\s*\d{1,2}:\d{2})?))\s*$"
+        , re.UNICODE,
     )
 
     new = re.sub(date_time_re, "", s).strip()
@@ -95,19 +97,6 @@ def display_length(s: str) -> int:
     Uses unicodedata.east_asian_width to approximate visual width so we can set column width
     in Excel more reasonably for mixed Latin/Korean text.
     """
-    # if not s:
-    #     return 0
-    # total = 0
-    # for ch in s:
-    #     try:
-    #         ea = unicodedata.east_asian_width(ch)
-    #     except Exception:
-    #         ea = 'N'
-    #     if ea in ('F', 'W'):
-    #         total += 2
-    #     else:
-    #         total += 1
-    # return total
     if not s:
         return 0
     total = 0
@@ -116,8 +105,34 @@ def display_length(s: str) -> int:
             ea = unicodedata.east_asian_width(ch)
         except Exception:
             ea = 'N'
-        total += 2 if ea in ('F', 'W') else 1
+        if ea in ('F', 'W'):
+            total += 2
+        else:
+            total += 1
     return total
+    max_width_per_line = 40
+
+    row = 1
+    while True:
+        cell = ws[f"A{row}"]
+        value = cell.value
+
+        # 빈셀이면 loop 종료
+        if value is None or str(value).strip() == "":
+            break
+
+        # 표시 길이 계산
+        disp_len = display_length(str(value))
+
+        # 필요 줄 수 계산
+        lines = math.ceil(disp_len / max_width_per_line)
+
+        # 행 전체 높이를 A열 텍스트 기준으로 조절
+        ws.row_dimensions[row].height = 15 * lines
+
+        row += 1
+
+
 
 
 def process_workbook(path: str, sheet_name: str | None = None, inplace: bool = False) -> str:
@@ -184,14 +199,14 @@ def main():
     parser.add_argument("file", nargs="?", default="infrom_note.xlsx", help="Excel file to process (default: infrom_note.xlsx)")
     parser.add_argument("--sheet", help="Sheet name to process (default: active sheet)")
     parser.add_argument("--inplace", action="store_true", help="Overwrite without making a backup")
-    args = parser.parse_args()
+    args = parser.parse_args() 
 
     try:
         backup = process_workbook(args.file, sheet_name=args.sheet, inplace=args.inplace)
     except Exception as e:
         print(f"Error: {e}", file=sys.stderr)
-        sys.exit(2)
-
+        #sys.exit()                                                          
+        sys.exit()
     if args.inplace:
         print(f"Processed and saved: {args.file} (inplace) ")
     else:
