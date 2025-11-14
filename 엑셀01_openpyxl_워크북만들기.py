@@ -4,4 +4,4 @@ wb = op.Workbook()
 print(wb)
 
 #저장하기
-wb.save("test.xlsx")
+wb.save("infrom_note.xlsx")

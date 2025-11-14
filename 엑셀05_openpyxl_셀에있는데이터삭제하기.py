@@ -1,6 +1,6 @@
 import  openpyxl  as  op
 
-wb = op.load_workbook("sample20.xlsx")
+wb = op.load_workbook("infrom_note.xlsx")
 ws = wb.active
 
 #ws에서 데이터범위 설정
@@ -13,4 +13,4 @@ for  row_data  in  rng:
             data.value = ""
 
 #Workbook 객체 저장
-wb.save("sample20_result.xlsx")
+wb.save("infrom_note.xlsx")
