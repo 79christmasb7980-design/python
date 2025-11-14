@@ -206,7 +206,7 @@ def main():
     except Exception as e:
         print(f"Error: {e}", file=sys.stderr)
         #sys.exit()                                                          
-        sys.exit()
+        sys.exit(2)
     if args.inplace:
         print(f"Processed and saved: {args.file} (inplace) ")
     else:
